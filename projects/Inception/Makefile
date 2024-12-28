@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+         #
+#    By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 17:46:13 by dde-giov          #+#    #+#              #
-#    Updated: 2024/11/27 02:58:49 by dde-giov         ###   ########.fr        #
+#    Updated: 2024/12/28 16:24:28 by dde-giov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,5 +118,17 @@ fix-dns:
 	else \
 		echo "$(GREEN)DNS entry for $(DOMAIN) already exists in /etc/hosts$(CLR_RMV)"; \
 	fi
+help:
+	@echo "Available commands:"
+	@echo "$(YELLOW)all$(CLR_RMV)                - Build and start the project"
+	@echo "$(YELLOW)build$(CLR_RMV)              - Alias for 'all', build the project"
+	@echo "$(YELLOW)up$(CLR_RMV)                 - Start the containers"
+	@echo "$(YELLOW)clean$(CLR_RMV)              - Stop and remove containers, images, volumes, and networks"
+	@echo "$(YELLOW)prune$(CLR_RMV)              - Clean everything and remove unused Docker resources"
+	@echo "$(YELLOW)down$(CLR_RMV)               - Stop containers and bring down the services"
+	@echo "$(YELLOW)re$(CLR_RMV)                 - Clean and rebuild the project"
+	@echo "$(YELLOW)restart$(CLR_RMV)            - Restart the services (down and up)"
+	@echo "$(YELLOW)fix-permissions$(CLR_RMV)    - Configure Docker to run without sudo"
+	@echo "$(YELLOW)fix-dns$(CLR_RMV)            - Add DNS entry for the domain dde-giov.42.fr if missing"
 
 .PHONY: all up build clean prune down re restart fix-permissions fix-dns
