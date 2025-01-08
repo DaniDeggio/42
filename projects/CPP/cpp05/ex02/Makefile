@@ -6,11 +6,11 @@
 #    By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/20 17:37:53 by dde-giov          #+#    #+#              #
-#    Updated: 2024/11/19 19:49:19 by dde-giov         ###   ########.fr        #
+#    Updated: 2024/11/19 21:10:13 by dde-giov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= Bureaucrat
+NAME	= BureaucratForm
 
 CC := c++
 FLAGS := -Wall -Wextra -Werror -std=c++98
@@ -28,6 +28,7 @@ CYAN := \033[1;36m
 
 SRC :=	srcs/main.cpp \
 		class/Bureaucrat.cpp \
+		class/Form.cpp \
 
 OBJS := $(addprefix $(OBJSDIR)/, $(SRC:.cpp=.o))
 
