@@ -17,6 +17,8 @@
 #include <string>
 #include "Bureaucrat.hpp"
 
+class Bureaucrat;
+
 class AForm {
 	private:
 		const std::string name;
@@ -37,7 +39,6 @@ class AForm {
 		int getGradeToExecute() const;
 
 		void beSigned(Bureaucrat &b);
-		void signForm(Bureaucrat &b);
 
 		virtual void execute(Bureaucrat const & executor) const = 0;
 
@@ -47,6 +48,11 @@ class AForm {
 		};
 		
 		class GradeTooLowException : public std::exception {
+			public:
+				virtual const char* what() const throw();
+		};
+
+		class FormNotSignedException : public std::exception {
 			public:
 				virtual const char* what() const throw();
 		};

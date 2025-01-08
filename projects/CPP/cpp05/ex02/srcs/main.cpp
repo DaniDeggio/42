@@ -6,73 +6,62 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:54:02 by dde-giov          #+#    #+#             */
-/*   Updated: 2024/11/19 21:14:52 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/01/08 21:26:30 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../class/Bureaucrat.hpp"
-#include "../class/Form.hpp"
+#include "../class/AForm.hpp"
+#include "../class/ShrubberyCreationForm.hpp"
+#include "../class/RobotomyRequestForm.hpp"
+#include "../class/PresidentialPardonForm.hpp"
 
 int main(){
 	try
 	{
-		Bureaucrat b1("Bureaucrat1", 2);
-		std::cout << b1;
-		Form f1("Form1", 2, 2);
-		std::cout << f1;
-		f1.signForm(b1);
-		std::cout << f1;
-	}
-	catch (std::exception & e)
+		Bureaucrat b1("Bureaucrat1", 120);
+		Bureaucrat b2("Bureaucrat2", 140);
+		
+		AForm *f1 = new ShrubberyCreationForm("TEST");
+		b2.signForm(*f1);
+		b2.executeForm(*f1);
+		b1.executeForm(*f1);
+	} catch (std::exception & e)
 	{
 		std::cout << e.what() << std::endl;
 	}
-
-	std::cout << std::endl; // form too high
+	
+	std::cout << std::endl;
 
 	try
 	{
-		Form f2("Form2", 0, 2);
-		std::cout << f2;
-	}
-	catch (std::exception & e)
+		Bureaucrat b1("Bureaucrat1", 40);
+		Bureaucrat b2("Bureaucrat2", 60);
+		
+		AForm *f1 = new RobotomyRequestForm("TEST");
+		b2.signForm(*f1);
+		b2.executeForm(*f1);
+		b1.executeForm(*f1);
+	} catch (std::exception & e)
 	{
 		std::cout << e.what() << std::endl;
 	}
-
-	std::cout << std::endl; // form too low
+	
+	std::cout << std::endl;
 
 	try
 	{
-		Form f3("Form3", 2, 151);
-		std::cout << f3;
-	}
-	catch (std::exception & e)
+		Bureaucrat b1("Bureaucrat1", 10);
+		Bureaucrat b2("Bureaucrat2", 2);
+		
+		AForm *f1 = new PresidentialPardonForm("TEST");
+		b2.signForm(*f1);
+		b2.executeForm(*f1);
+		b1.executeForm(*f1);
+	} catch (std::exception & e)
 	{
 		std::cout << e.what() << std::endl;
 	}
-
-	std::cout << std::endl; // too low to sign
-
-	try
-	{
-		Bureaucrat b4("Bureaucrat4", 3);
-		std::cout << b4;
-		Form f4("Form4", 2, 2);
-		std::cout << f4;
-		f4.signForm(b4);
-		std::cout << f4;
-		b4.incrementGrade();
-		std::cout << b4;
-		f4.signForm(b4);
-		std::cout << f4;
-		b4.incrementGrade();
-		std::cout << b4;
-		b4.incrementGrade();
-		std::cout << b4;
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
+	
+	std::cout << std::endl;
 }

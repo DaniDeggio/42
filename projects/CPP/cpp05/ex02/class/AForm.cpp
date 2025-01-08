@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:48:39 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/01/08 04:46:19 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:40:41 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,16 @@ void AForm::beSigned(Bureaucrat &b) {
 		throw AForm::GradeTooLowException();
 }
 
-void AForm::signAForm(Bureaucrat &b) {
-	try
-	{
-		this->beSigned(b);
-		std::cout << b.getName() << " signs " << this->name << std::endl;
-	}
-	catch (std::exception & e)
-	{
-		std::cout << b.getName() << " cannot sign " << this->name << " because " << e.what() << std::endl;
-	}
-}
-
 const char* AForm::GradeTooHighException::what() const throw() {
 	return "Grade is too high";
 }
 
 const char* AForm::GradeTooLowException::what() const throw() {
 	return "Grade is too low";
+}
+
+const char* AForm::FormNotSignedException::what() const throw() {
+	return "Form is not signed";
 }
 
 std::ostream & operator<<(std::ostream &out, AForm const &frm) {

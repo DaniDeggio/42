@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:07:17 by dde-giov          #+#    #+#             */
-/*   Updated: 2024/11/19 20:16:35 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/01/08 21:37:25 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 #include <iostream>
 #include <string>
+#include "Form.hpp"
+
+class Form;
 
 class Bureaucrat {
 	private:
@@ -36,6 +39,8 @@ class Bureaucrat {
 
 		void incrementGrade();
 		void decrementGrade();
+
+		void signForm(Form &frm);
 		
 		class GradeTooHighException : public std::exception {
 			public:

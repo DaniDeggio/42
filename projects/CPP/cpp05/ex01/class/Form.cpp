@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:48:39 by dde-giov          #+#    #+#             */
-/*   Updated: 2024/11/19 21:04:10 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:30:09 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,6 @@ void Form::beSigned(Bureaucrat &b) {
 		this->sign = true;
 	else
 		throw Form::GradeTooLowException();
-}
-
-void Form::signForm(Bureaucrat &b) {
-	try
-	{
-		this->beSigned(b);
-		std::cout << b.getName() << " signs " << this->name << std::endl;
-	}
-	catch (std::exception & e)
-	{
-		std::cout << b.getName() << " cannot sign " << this->name << " because " << e.what() << std::endl;
-	}
 }
 
 const char* Form::GradeTooHighException::what() const throw() {

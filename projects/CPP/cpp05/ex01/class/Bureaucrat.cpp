@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:07:12 by dde-giov          #+#    #+#             */
-/*   Updated: 2024/11/19 20:17:34 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/01/08 21:39:10 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,15 @@ void Bureaucrat::decrementGrade() {
 	if (this->grade == 150)
 		throw Bureaucrat::GradeTooLowException();
 	this->grade++;
+}
+
+void Bureaucrat::signForm(Form &frm) {
+	try {
+		frm.beSigned(*this);
+		std::cout << this->name << " signs " << frm.getName() << std::endl;
+	} catch (std::exception &e) {
+		std::cout << this->name << " cannot sign " << frm.getName() << " because " << e.what() << std::endl;
+	}
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw() {

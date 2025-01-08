@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:54:02 by dde-giov          #+#    #+#             */
-/*   Updated: 2024/11/19 21:14:52 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:53:34 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main(){
 		std::cout << b1;
 		Form f1("Form1", 2, 2);
 		std::cout << f1;
-		f1.signForm(b1);
+		b1.signForm(f1);
 		std::cout << f1;
 	}
 	catch (std::exception & e)
@@ -60,11 +60,11 @@ int main(){
 		std::cout << b4;
 		Form f4("Form4", 2, 2);
 		std::cout << f4;
-		f4.signForm(b4);
+		b4.signForm(f4);
 		std::cout << f4;
 		b4.incrementGrade();
 		std::cout << b4;
-		f4.signForm(b4);
+		b4.signForm(f4);
 		std::cout << f4;
 		b4.incrementGrade();
 		std::cout << b4;
