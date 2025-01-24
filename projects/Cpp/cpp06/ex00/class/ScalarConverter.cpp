@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 19:12:41 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/01/24 17:01:45 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/01/24 18:35:45 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,67 @@ ScalarConverter::~ScalarConverter(void) {
 
 void ScalarConverter::convert(std::string literal) {
 	std::string pseudo[8] = {"inff", "+inff", "-inff", "nanf", "inf", "+inf", "-inf", "nan"};
+	char c;
+	int n = 0;
+	float f = 0.0f;
+	double d = 0.0;
 
 	for (int i = 0; i < 8; i++) {
 		if (literal == pseudo[i]) {
-			float f = std::atof(literal.c_str());
+			d = std::atof(literal.c_str());
 			std::cout << "char: impossible" << std::endl;
 			std::cout << "int: impossible" << std::endl;
-			std::cout << "float: " << f << ".0f" << std::endl;
-			std::cout << "double: " << static_cast<double>(f) << std::endl;
+			std::cout << "float: " << static_cast<float>(d) << 'f' << std::endl;
+			std::cout << "double: " << d << std::endl;
 			return;
 		}
 	}
 
 	if (literal.length() == 1 && !std::isdigit(literal[0])) {
-		char c = literal[0];
+		c = literal[0];
 		if (c < 32 || c > 126 || c == 127)
 			std::cout << "char: Non displayable" << std::endl;
 		else
 			std::cout << "char: '" << c << "'" << std::endl;
 		std::cout << "int: " << static_cast<int>(c) << std::endl;
-		std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
-		std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
+		std::cout << "float: " << static_cast<float>(c) << 'f' << std::endl;
+		std::cout << "double: " << static_cast<double>(c) << std::endl;
 		return;
 	}
+	n = std::atoi(literal.c_str());
+	if (std::strchr(literal.c_str(), '.')){
+
+		if (literal[literal.length() - 1] == 'f'){
+			f = static_cast<float>(std::atof(literal.c_str()));
+			if (n < 32 || n > 126 || n == 127)
+				std::cout << "char: Non displayable" << std::endl;
+			else
+				std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
+			std::cout << "int: " << static_cast<int>(f) << std::endl;
+			std::cout << "float: " << f << 'f' << std::endl;
+			std::cout << "double: " << static_cast<double>(f) << std::endl;
+			return;
+		}
+		d = std::atof(literal.c_str());
+		if (n < 32 || n > 126 || n == 127)
+			std::cout << "char: Non displayable" << std::endl;
+		else
+			std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
+		std::cout << "int: " << static_cast<int>(d) << std::endl;
+		std::cout << "float: " << static_cast<float>(d) << 'f' << std::endl;
+		std::cout << "double: " << d << std::endl;
+			return;
+		
+	} else {
+		if (n < 32 || n > 126 || n == 127)
+			std::cout << "char: Non displayable" << std::endl;
+		else
+			std::cout << "char: '" << static_cast<char>(n) << "'" << std::endl;
+		std::cout << "int: " << n << std::endl;
+		std::cout << "float: " << static_cast<float>(n) << 'f' << std::endl;
+		std::cout << "double: " << static_cast<double>(n) << std::endl;
+	}
+	
 // 	try {
 // 		int i = std::atoi(literal.c_str());
 // 		if (i < 32 || i > 126 || i == 127)
