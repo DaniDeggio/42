@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:54:02 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/01/17 04:18:46 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:55:59 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,24 @@
 #include "../class/PresidentialPardonForm.hpp"
 #include "../class/Intern.hpp"
 
-int main(){
+int main(int ac, char **av){
+	std::string target("Default");
+	if (ac > 1)
+		target = av[1];
+
 	try
 	{
 		Bureaucrat b1("Bureaucrat1", 120);
 		Bureaucrat b2("Bureaucrat2", 140);
+        Intern someRandomIntern;
+        AForm* f1;
+
+        f1 = someRandomIntern.makeForm("shrubbery creation", target);
 		
-		AForm *f1 = new ShrubberyCreationForm("TEST");
 		b2.signForm(*f1);
 		b2.executeForm(*f1);
 		b1.executeForm(*f1);
+		
 		delete f1;
 	} catch (std::exception & e)
 	{
@@ -39,8 +47,11 @@ int main(){
 	{
 		Bureaucrat b1("Bureaucrat1", 40);
 		Bureaucrat b2("Bureaucrat2", 60);
-		
-		AForm *f1 = new RobotomyRequestForm("TEST");
+        Intern someRandomIntern;
+        AForm* f1;
+
+        f1 = someRandomIntern.makeForm("robotomy request", target);
+
 		b2.signForm(*f1);
 		b2.executeForm(*f1);
 		b1.executeForm(*f1);
@@ -56,8 +67,11 @@ int main(){
 	{
 		Bureaucrat b1("Bureaucrat1", 10);
 		Bureaucrat b2("Bureaucrat2", 2);
-		
-		AForm *f1 = new PresidentialPardonForm("TEST");
+        Intern someRandomIntern;
+        AForm* f1;
+
+        f1 = someRandomIntern.makeForm("presidential pardon", target);
+
 		b2.signForm(*f1);
 		b2.executeForm(*f1);
 		b1.executeForm(*f1);
