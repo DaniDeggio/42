@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 19:12:41 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/01/23 17:38:40 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:01:45 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,22 @@ void ScalarConverter::convert(std::string literal) {
 			float f = std::atof(literal.c_str());
 			std::cout << "char: impossible" << std::endl;
 			std::cout << "int: impossible" << std::endl;
-			std::cout << "float: " << f << "f" << std::endl;
+			std::cout << "float: " << f << ".0f" << std::endl;
 			std::cout << "double: " << static_cast<double>(f) << std::endl;
 			return;
 		}
+	}
+
+	if (literal.length() == 1 && !std::isdigit(literal[0])) {
+		char c = literal[0];
+		if (c < 32 || c > 126 || c == 127)
+			std::cout << "char: Non displayable" << std::endl;
+		else
+			std::cout << "char: '" << c << "'" << std::endl;
+		std::cout << "int: " << static_cast<int>(c) << std::endl;
+		std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
+		std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
+		return;
 	}
 // 	try {
 // 		int i = std::atoi(literal.c_str());
