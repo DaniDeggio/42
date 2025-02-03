@@ -18,6 +18,8 @@
 #include <cstring>
 #include <cstdlib>
 #include <ctype.h>
+#include <iomanip>
+#include <cmath>
 
 class ScalarConverter {
 	private:	
