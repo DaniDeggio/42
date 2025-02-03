@@ -17,6 +17,7 @@
 #include <string>
 #include <cstring>
 #include <cstdlib>
+#include <ctype.h>
 
 class ScalarConverter {
 	private:	
