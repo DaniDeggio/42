@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 19:12:41 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/02/05 03:16:33 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/02/05 04:30:57 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,14 @@ void ScalarConverter::convert(std::string literal) {
                 std::cout << "Conversione in float fuori range o non valida" << std::endl;
                 return;
 			}
-			if (std::isprint(f) == 0)
+			if (static_cast<int>(f) < 33 || static_cast<int>(f) > 126)
 				std::cout << "char: Non displayable" << std::endl;
 			else
 				std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
-			std::cout << "int: " << static_cast<int>(f) << std::endl;
+			if (static_cast<long>(f) > INT_MAX || static_cast<long>(f) < INT_MIN)
+				std::cout << "int: impossible" << std::endl;
+			else
+				std::cout << "int: " << static_cast<int>(f) << std::endl;
             if (std::fmod(f, 1.0f) == 0.0f){
 				std::cout << "float: " << f << ".0f" << std::endl;
 				std::cout << "double: " << static_cast<double>(f) << ".0" << std::endl;
@@ -84,11 +87,14 @@ void ScalarConverter::convert(std::string literal) {
             std::cout << "Conversione in double fuori range o non valida" << std::endl;
             return;
         }
-		if (std::isprint(d) == 0)
+		if (static_cast<int>(d) < 33 || static_cast<int>(d) > 126)
 			std::cout << "char: Non displayable" << std::endl;
 		else
 			std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
-		std::cout << "int: " << static_cast<int>(d) << std::endl;
+		if (static_cast<long>(d) > INT_MAX || static_cast<long>(d) < INT_MIN)
+			std::cout << "int: impossible" << std::endl;
+		else
+			std::cout << "int: " << static_cast<int>(d) << std::endl;
 		if (std::fmod(d, 1.0) == 0.0){
         	if (d > std::numeric_limits<float>::max() || d < std::numeric_limits<float>::min())
 				std::cout << "float: impossible" << std::endl;
@@ -112,7 +118,7 @@ void ScalarConverter::convert(std::string literal) {
         }
 		
 		int n = std::atoi(literal.c_str());
-		if (std::isprint(n) == 0)
+		if (n < 33 || n > 126)
 			std::cout << "char: Non displayable" << std::endl;
 		else
 			std::cout << "char: '" << static_cast<char>(n) << "'" << std::endl;
