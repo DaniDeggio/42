@@ -20,6 +20,9 @@
 #include <ctype.h>
 #include <iomanip>
 #include <cmath>
+#include <limits>
+#include <climits>
+#include <cerrno>
 
 class ScalarConverter {
 	private:	

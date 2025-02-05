@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 19:12:41 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/02/03 17:55:36 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/02/05 03:16:33 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ ScalarConverter::~ScalarConverter(void) {
 
 void ScalarConverter::convert(std::string literal) {
 	std::string pseudo[8] = {"inff", "+inff", "-inff", "nanf", "inf", "+inf", "-inf", "nan"};
-	
+	errno = 0; // Reset di errno prima di ogni conversione
+	char *end;
+
 	for (int i = 0; i < 8; i++) {
 		if (literal == pseudo[i]) {
-			double d = std::atof(literal.c_str());
+            double d = std::strtod(literal.c_str(), &end);
 			std::cout << "char: impossible" << std::endl;
 			std::cout << "int: impossible" << std::endl;
 			std::cout << "float: " << static_cast<float>(d) << 'f' << std::endl;
@@ -53,10 +55,15 @@ void ScalarConverter::convert(std::string literal) {
 		std::cout << "double: " << static_cast<double>(c) << std::endl;
 		return;
 	}
+
 	if (std::strchr(literal.c_str(), '.')) {
 
 		if (literal[literal.length() - 1] == 'f') {
-			float f = std::atof(literal.c_str());
+            float f = std::strtof(literal.c_str(), &end);
+			if (errno == ERANGE || *end != 'f') {
+                std::cout << "Conversione in float fuori range o non valida" << std::endl;
+                return;
+			}
 			if (std::isprint(f) == 0)
 				std::cout << "char: Non displayable" << std::endl;
 			else
@@ -71,29 +78,52 @@ void ScalarConverter::convert(std::string literal) {
 			}
 			return;
 		}
-		double d = std::atof(literal.c_str());
+
+        double d = std::strtod(literal.c_str(), &end);
+		if (errno == ERANGE || *end != '\0') {
+            std::cout << "Conversione in double fuori range o non valida" << std::endl;
+            return;
+        }
 		if (std::isprint(d) == 0)
 			std::cout << "char: Non displayable" << std::endl;
 		else
 			std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
 		std::cout << "int: " << static_cast<int>(d) << std::endl;
 		if (std::fmod(d, 1.0) == 0.0){
-			std::cout << "float: " << static_cast<float>(d) << ".0f" << std::endl;
+        	if (d > std::numeric_limits<float>::max() || d < std::numeric_limits<float>::min())
+				std::cout << "float: impossible" << std::endl;
+			else
+				std::cout << "float: " << static_cast<float>(d) << ".0f" << std::endl;
 			std::cout << "double: " << d << ".0" << std::endl;
 		} else {
-			std::cout << std::setprecision(7) << "float: " << static_cast<float>(d) << "f" << std::endl;
+			if (d > std::numeric_limits<float>::max() || d < std::numeric_limits<float>::min())
+				std::cout << "float: impossible" << std::endl;
+			else
+				std::cout << std::setprecision(7) << "float: " << static_cast<float>(d) << "f" << std::endl;
 			std::cout << std::setprecision(15) << "double: " << d << std::endl;
 		}
 		return;
 
 	} else {
+		long nl = std::strtol(literal.c_str(), &end, 10);
+        if (errno == ERANGE || *end != '\0' || nl < INT_MIN || nl > INT_MAX) {
+            std::cout << "Conversione in int fuori range o non valida" << std::endl;
+            return;
+        }
+		
 		int n = std::atoi(literal.c_str());
 		if (std::isprint(n) == 0)
 			std::cout << "char: Non displayable" << std::endl;
 		else
 			std::cout << "char: '" << static_cast<char>(n) << "'" << std::endl;
 		std::cout << "int: " << n << std::endl;
-		std::cout << "float: " << static_cast<float>(n) << ".0f" << std::endl;
-		std::cout << "double: " << static_cast<double>(n) << ".0" << std::endl;
+		if (n > std::numeric_limits<float>::max() || n < std::numeric_limits<float>::min())
+			std::cout << "float: impossible" << std::endl;
+		else
+			std::cout << "float: " << static_cast<float>(n) << ".0f" << std::endl;
+		if (n > std::numeric_limits<float>::max() || n < std::numeric_limits<float>::min())
+			std::cout << "double: impossible" << std::endl;
+		else
+			std::cout << "double: " << static_cast<double>(n) << ".0" << std::endl;
 	}
 }
