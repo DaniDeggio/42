@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 19:12:41 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/02/05 04:30:57 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/02/06 03:57:00 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ ScalarConverter::~ScalarConverter(void) {
 
 void ScalarConverter::convert(std::string literal) {
 	std::string pseudo[8] = {"inff", "+inff", "-inff", "nanf", "inf", "+inf", "-inf", "nan"};
-	errno = 0; // Reset di errno prima di ogni conversione
+	errno = 0;
 	char *end;
 
 	for (int i = 0; i < 8; i++) {
@@ -50,9 +50,8 @@ void ScalarConverter::convert(std::string literal) {
 		else
 			std::cout << "char: '" << c << "'" << std::endl;
 		std::cout << "int: " << static_cast<int>(c) << std::endl;
-		//std::cout << std::fixed << std::showpoint;
-		std::cout << "float: " << static_cast<float>(c) << "f" << std::endl;
-		std::cout << "double: " << static_cast<double>(c) << std::endl;
+		std::cout << std::fixed << std::setprecision(1) << "float: " << static_cast<float>(c) << "f" << std::endl;
+		std::cout << std::fixed << std::setprecision(1) << "double: " << static_cast<double>(c) << std::endl;
 		return;
 	}
 
@@ -64,20 +63,20 @@ void ScalarConverter::convert(std::string literal) {
                 std::cout << "Conversione in float fuori range o non valida" << std::endl;
                 return;
 			}
-			if (static_cast<int>(f) < 33 || static_cast<int>(f) > 126)
+			if (f < 33 || f > 126)
 				std::cout << "char: Non displayable" << std::endl;
 			else
 				std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
-			if (static_cast<long>(f) > INT_MAX || static_cast<long>(f) < INT_MIN)
+			if (f > INT_MAX || f < INT_MIN)
 				std::cout << "int: impossible" << std::endl;
 			else
 				std::cout << "int: " << static_cast<int>(f) << std::endl;
             if (std::fmod(f, 1.0f) == 0.0f){
-				std::cout << "float: " << f << ".0f" << std::endl;
-				std::cout << "double: " << static_cast<double>(f) << ".0" << std::endl;
+				std::cout << std::fixed << std::setprecision(1) << "float: " << f << 'f' << std::endl;
+				std::cout << std::fixed << std::setprecision(1) << "double: " << static_cast<double>(f) << std::endl;
 			} else {
-				std::cout << std::setprecision(7) << "float: " << f << "f" << std::endl;
-				std::cout << std::setprecision(15) << "double: " << static_cast<double>(f) << std::endl;
+				std::cout << std::fixed << "float: " << f << "f" << std::endl;
+				std::cout << std::fixed <<  "double: " << static_cast<double>(f) << std::endl;
 			}
 			return;
 		}
@@ -87,26 +86,26 @@ void ScalarConverter::convert(std::string literal) {
             std::cout << "Conversione in double fuori range o non valida" << std::endl;
             return;
         }
-		if (static_cast<int>(d) < 33 || static_cast<int>(d) > 126)
+		if (d < 33 || d > 126)
 			std::cout << "char: Non displayable" << std::endl;
 		else
 			std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
-		if (static_cast<long>(d) > INT_MAX || static_cast<long>(d) < INT_MIN)
+		if (d > INT_MAX || d < INT_MIN)
 			std::cout << "int: impossible" << std::endl;
 		else
 			std::cout << "int: " << static_cast<int>(d) << std::endl;
 		if (std::fmod(d, 1.0) == 0.0){
-        	if (d > std::numeric_limits<float>::max() || d < std::numeric_limits<float>::min())
+        	if (d > std::numeric_limits<float>::max() || d < -std::numeric_limits<float>::max())
 				std::cout << "float: impossible" << std::endl;
 			else
-				std::cout << "float: " << static_cast<float>(d) << ".0f" << std::endl;
-			std::cout << "double: " << d << ".0" << std::endl;
+				std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(d) << 'f' << std::endl;
+			std::cout << std::fixed << std::setprecision(1) << "double: " << d << std::endl;
 		} else {
-			if (d > std::numeric_limits<float>::max() || d < std::numeric_limits<float>::min())
+			if (d > std::numeric_limits<float>::max() || d < -std::numeric_limits<float>::max())
 				std::cout << "float: impossible" << std::endl;
 			else
-				std::cout << std::setprecision(7) << "float: " << static_cast<float>(d) << "f" << std::endl;
-			std::cout << std::setprecision(15) << "double: " << d << std::endl;
+				std::cout << std::fixed << "float: " << static_cast<float>(d) << "f" << std::endl;
+			std::cout << std::fixed <<  "double: " << d << std::endl;
 		}
 		return;
 
@@ -123,13 +122,7 @@ void ScalarConverter::convert(std::string literal) {
 		else
 			std::cout << "char: '" << static_cast<char>(n) << "'" << std::endl;
 		std::cout << "int: " << n << std::endl;
-		if (n > std::numeric_limits<float>::max() || n < std::numeric_limits<float>::min())
-			std::cout << "float: impossible" << std::endl;
-		else
-			std::cout << "float: " << static_cast<float>(n) << ".0f" << std::endl;
-		if (n > std::numeric_limits<float>::max() || n < std::numeric_limits<float>::min())
-			std::cout << "double: impossible" << std::endl;
-		else
-			std::cout << "double: " << static_cast<double>(n) << ".0" << std::endl;
+		std::cout << std::fixed << std::setprecision(1) << "float: " << static_cast<float>(n) << "f" << std::endl;
+		std::cout << std::fixed << std::setprecision(1) << "double: " << static_cast<double>(n) << std::endl;
 	}
 }
