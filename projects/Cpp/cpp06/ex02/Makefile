@@ -6,11 +6,11 @@
 #    By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/20 17:37:53 by dde-giov          #+#    #+#              #
-#    Updated: 2025/01/21 05:52:48 by dde-giov         ###   ########.fr        #
+#    Updated: 2025/03/27 05:07:48 by dde-giov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= ScalarConvert
+NAME	= RealType
 
 CC := c++
 FLAGS := -Wall -Wextra -Werror -std=c++98
@@ -27,12 +27,10 @@ BLUE := \033[1;34m
 CYAN := \033[1;36m
 
 SRC :=	srcs/main.cpp \
-		class/AForm.cpp \
-		class/Bureaucrat.cpp \
-		class/ShrubberyCreationForm.cpp \
-		class/RobotomyRequestForm.cpp \
-		class/PresidentialPardonForm.cpp \
-		class/Intern.cpp
+		class/Base.cpp \
+		class/A.cpp \
+		class/B.cpp \
+		class/C.cpp
 
 OBJS := $(addprefix $(OBJSDIR)/, $(SRC:.cpp=.o))
 

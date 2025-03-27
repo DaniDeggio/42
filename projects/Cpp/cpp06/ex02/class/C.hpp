@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScalarConverter.hpp                         :+:      :+:    :+:   */
+/*   C.hpp                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/08 05:17:39 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/01/21 05:53:48 by dde-giov         ###   ########.fr       */
+/*   Created: 2025/03/27 04:41:07 by dde-giov          #+#    #+#             */
+/*   Updated: 2025/03/27 04:47:59 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCALARCONVERTER_HPP
-# define SCALARCONVERTER_HPP
+#ifndef C_HPP
+# define C_HPP
 
-#include <iostream>
-#include <string>
+#include "Base.hpp"
 
-class ScalarConverter {
+class C : public Base {
 	private:	
-		
 	public:
-		ScalarConverter(void);
-		ScalarConverter(ScalarConverter const &src);
-		ScalarConverter &operator=(ScalarConverter const &src);
-		~ScalarConverter();
-
-		void convert(std::string literal);
-}; 
+};
 
 #endif

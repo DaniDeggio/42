@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Base.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 19:54:02 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/03/27 05:05:48 by dde-giov         ###   ########.fr       */
+/*   Created: 2025/01/08 05:17:39 by dde-giov          #+#    #+#             */
+/*   Updated: 2025/01/21 05:53:48 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../class/Base.hpp"
+#ifndef BASE_HPP
+# define BASE_HPP
 
-int main() {
-    srand(time(NULL));
+#include <iostream>
+#include <string>
+#include <cstdlib>
 
-    Base *b = Base::generate();
-    Base::identify(b);
-    Base::identify(*b);
 
-    delete b;
-    return 0;
-}
+class Base {
+	private:	
+		
+	public:
+		virtual ~Base();
+		static Base *generate(void);
+		static void identify(Base* p);
+		static void identify(Base& p);
+}; 
+
+#endif

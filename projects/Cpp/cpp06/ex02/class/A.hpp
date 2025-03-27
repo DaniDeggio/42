@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   A.hpp                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 19:54:02 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/03/27 05:05:48 by dde-giov         ###   ########.fr       */
+/*   Created: 2025/03/27 04:41:07 by dde-giov          #+#    #+#             */
+/*   Updated: 2025/03/27 04:47:50 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../class/Base.hpp"
+#ifndef A_HPP
+# define A_HPP
 
-int main() {
-    srand(time(NULL));
+#include "Base.hpp"
 
-    Base *b = Base::generate();
-    Base::identify(b);
-    Base::identify(*b);
+class A : public Base {
+	private:	
+	public:
+};
 
-    delete b;
-    return 0;
-}
+#endif
