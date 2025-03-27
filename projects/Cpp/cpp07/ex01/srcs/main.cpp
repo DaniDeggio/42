@@ -1,53 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 21:59:50 by dde-giov          #+#    #+#             */
+/*   Updated: 2025/03/27 22:48:03 by dde-giov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
-#include <Array.hpp>
+#include "../include/iter.hpp"
 
-#define MAX_VAL 750
-int main(int, char**)
-{
-    Array<int> numbers(MAX_VAL);
-    int* mirror = new int[MAX_VAL];
-    srand(time(NULL));
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        const int value = rand();
-        numbers[i] = value;
-        mirror[i] = value;
-    }
-    //SCOPE
-    {
-        Array<int> tmp = numbers;
-        Array<int> test(tmp);
-    }
+void increment(int &n) {
+	n++;
+}
 
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        if (mirror[i] != numbers[i])
-        {
-            std::cerr << "didn't save the same value!!" << std::endl;
-            return 1;
-        }
-    }
-    try
-    {
-        numbers[-2] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    try
-    {
-        numbers[MAX_VAL] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
+void doubleValue(int &n) {
+	n *= 2;
+}
 
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        numbers[i] = rand();
-    }
-    delete [] mirror;//
-    return 0;
+int main( void ) {
+	int even[] = {2, 4, 6, 8, 10};
+
+	std::cout << "Even numbers: ";
+	for (int i = 0; i < 5; i++) {
+		std::cout << even[i] << ", ";
+	}
+	std::cout << std::endl;
+
+	iter(even, 5, increment);
+	
+	std::cout << "Even numbers incremented by 1: ";
+	for (int i = 0; i < 5; i++) {
+		std::cout << even[i] << ", ";
+	}
+	std::cout << std::endl;
+	
+	iter(even, 5, doubleValue);
+	
+	std::cout << "Odd numbers doubled: ";
+	for (int i = 0; i < 5; i++) {
+		std::cout << even[i] << ", ";
+	}
+	std::cout << std::endl;
+	
+	return 0;
 }
