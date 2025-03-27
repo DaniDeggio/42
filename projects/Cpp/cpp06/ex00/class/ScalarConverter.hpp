@@ -26,14 +26,13 @@
 
 class ScalarConverter {
 	private:	
-		
-	public:
 		ScalarConverter(void);
 		ScalarConverter(ScalarConverter const &src);
 		ScalarConverter &operator=(ScalarConverter const &src);
 		~ScalarConverter();
 
-		void convert(std::string literal);
+	public:
+		static void convert(std::string literal);
 }; 
 
 #endif
