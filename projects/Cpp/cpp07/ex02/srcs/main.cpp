@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 23:38:13 by dde-giov          #+#    #+#             */
+/*   Updated: 2025/03/28 00:05:46 by dde-giov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
-#include <Array.hpp>
+#include <cstdlib>
+#include "../include/Array.hpp"
 
 #define MAX_VAL 750
 int main(int, char**)
