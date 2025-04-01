@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 22:37:49 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/03/28 00:44:22 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/04/01 07:48:21 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ class Array {
 
 	public:
 		Array(){
-			_array = new T[0];
+			_array = NULL;
 			_size = 0;
 		}
 
 		Array(unsigned int n){
-			_array = new T[n];
+			_array = new T[n]();
 			_size = n;
 		}
 
@@ -54,12 +54,12 @@ class Array {
 			return *this;
 		}
 
-		T &operator[](unsigned int n){
-			if (n >= _size)
+		T &operator[](unsigned int i){
+			if (i >= _size)
 				throw std::exception();
-			return _array[n];
+			return _array[i];
 		}
-
+		
 		unsigned int size() const{
 			return _size;
 	}
