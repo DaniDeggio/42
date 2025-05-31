@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 22:37:49 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/05/28 19:53:46 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/05/31 15:48:45 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <vector>
+#include <exception>
 
 class Span{
 	private:
@@ -27,11 +28,11 @@ class Span{
 		Span(const Span &src);
 		~Span();
 
-		Span &operator=(const Span &rhs);
+		Span &operator=(const Span &src);
 
-		void addNumber(int n);
+		void addNumber(int numb);
 		int shortestSpan() const;
 		int longestSpan() const;
-}
+};
 
 #endif
