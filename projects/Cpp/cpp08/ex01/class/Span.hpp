@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 22:37:49 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/05/31 15:48:45 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/06/03 16:23:22 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <vector>
 #include <exception>
+#include <algorithm>
 
 class Span{
 	private:
