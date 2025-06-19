@@ -6,12 +6,13 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 21:59:50 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/06/19 17:31:43 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:59:15 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "../class/Span.hpp"
+#include <list>
 
 int main( void ) {
 	Span sp = Span(5);
@@ -62,5 +63,36 @@ int main( void ) {
 	} catch (const std::exception &e) {
 		std::cerr << "Exception: " << e.what() << std::endl;
 	}
+	
+	
+	std::cout << "Adding multiple numbers" << std::endl;
+	Span spn2 = Span(10);
+	std::list<int> lst;
+	for(int i = 0; i < 6; ++i)
+		lst.push_back(i);
+
+	try {
+		spn2.addNumbers(lst.begin(), lst.end());
+		std::cout << "Shortest span: " << spn2.shortestSpan() << std::endl;
+		std::cout << "Longest span: " << spn2.longestSpan() << std::endl;
+	} catch (const std::exception &e) {
+		std::cerr << "Exception: " << e.what() << std::endl;
+	}
+	
+
+
+	std::cout << "Trying addint too many numbers" << std::endl;
+	std::list<int> lst2;
+	for(int i = 10; i < 18; ++i)
+		lst2.push_back(i);
+
+	try {
+		spn2.addNumbers(lst2.begin(), lst2.end());
+		std::cout << "Shortest span: " << spn2.shortestSpan() << std::endl;
+		std::cout << "Longest span: " << spn2.longestSpan() << std::endl;
+	} catch (const std::exception &e) {
+		std::cerr << "Exception: " << e.what() << std::endl;
+	}
+	
 	return 0;
 }
