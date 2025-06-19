@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 21:59:50 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/06/03 16:50:15 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:31:43 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,16 @@ int main( void ) {
 		std::cerr << "Exception: " << e.what() << std::endl;
 	}	
 
+	std::cout << "Testing span with 20.000 elements" << std::endl;
+	Span spn = Span(20000);
+	for(int i = 0; i < 20000; ++i)
+		spn.addNumber(i);
+
+	try {
+		std::cout << "Shortest span: " << spn.shortestSpan() << std::endl;
+		std::cout << "Longest span: " << spn.longestSpan() << std::endl;
+	} catch (const std::exception &e) {
+		std::cerr << "Exception: " << e.what() << std::endl;
+	}
 	return 0;
 }
