@@ -6,11 +6,11 @@
 #    By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/20 17:37:53 by dde-giov          #+#    #+#              #
-#    Updated: 2025/03/27 22:51:57 by dde-giov         ###   ########.fr        #
+#    Updated: 2025/07/15 17:07:33 by dde-giov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= Array
+NAME	= MutantStack
 
 CC := c++
 FLAGS := -Wall -Wextra -Werror -std=c++98
