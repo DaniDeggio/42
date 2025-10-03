@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 22:37:49 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/10/02 13:58:07 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/10/03 05:19:06 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class BitcoinExchange{
 		static std::string trim(const std::string& s);
 		static void splitOnce(const std::string& s, char sep, std::string& left, std::string& right);
 		
-		public:
+	public:
 		BitcoinExchange();
 		~BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange& other);
