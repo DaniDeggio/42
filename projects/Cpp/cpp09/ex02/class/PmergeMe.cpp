@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 14:26:37 by dde-giov          #+#    #+#             */
-/*   Updated: 2025/10/03 14:06:41 by dde-giov         ###   ########.fr       */
+/*   Updated: 2025/10/03 16:48:44 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ bool PmergeMe::parseInput(int argc, char** argv, std::vector<unsigned int>& out,
     return true;
 }
 
-// ----- Jacobsthal -----
+//  Jacobsthal
 size_t PmergeMe::jacobsthal(size_t n) {
     if (n == 0) 
 		return 0;
@@ -268,6 +268,7 @@ void PmergeMe::pairAndSortDeque(const std::deque<unsigned int>& in,
                                 std::deque<unsigned int>& mainChain,
                                 std::deque<unsigned int>& pendings,
                                 bool& hasOrphan, unsigned int& orphan) {
+	// step 1
     std::vector<PM_Pair> pairs;
     pairs.reserve(in.size() / 2);
     hasOrphan = false;
@@ -301,6 +302,7 @@ void PmergeMe::pairAndSortDeque(const std::deque<unsigned int>& in,
     
 	fjSortDeque(bigs);
 
+	// step 2
     mainChain.clear();
     for (size_t k = 0; k < bigs.size(); ++k)
 		mainChain.push_back(bigs[k]);
@@ -330,6 +332,8 @@ void PmergeMe::fjSortDeque(std::deque<unsigned int>& data) {
     unsigned int orphan = 0u;
 
     pairAndSortDeque(data, mainChain, pendings, hasOrphan, orphan);
+
+	// step 3
     const size_t m = pendings.size();
     if (m == 0) {
         if (hasOrphan)
