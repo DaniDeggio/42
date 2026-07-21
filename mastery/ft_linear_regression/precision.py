@@ -1,12 +1,16 @@
 import csv
 
 def load_dataset():
-    with open("data.csv", "r") as f:
-        reader = csv.reader(f)
-        next(reader)
-        dataset = []
-        for row in reader:
-            dataset.append((float(row[0]), float(row[1])))
+    try:
+        with open("data.csv", "r") as f:
+            reader = csv.reader(f)
+            next(reader)
+            dataset = []
+            for row in reader:
+                dataset.append((float(row[0]), float(row[1])))
+    except:
+        print("Dataset not found")
+        return None
     return dataset
 
 def load_model():
@@ -19,7 +23,7 @@ def load_model():
                 theta_0 = float(row[0])
                 theta_1 = float(row[1])
     except:
-        pass
+        print("Model not found, fallback to defaults")
     return theta_0, theta_1
 
 def predict(X, theta_0, theta_1):
@@ -45,5 +49,7 @@ def check_precision(theta_0, theta_1, dataset):
 if __name__ == "__main__":
     theta_0, theta_1 = load_model()
     dataset = load_dataset()
-
+    if dataset is None:
+        exit(1)
+    
     check_precision(theta_0, theta_1, dataset)

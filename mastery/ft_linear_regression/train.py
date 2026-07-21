@@ -53,13 +53,18 @@ def train(dataset, iterations, learning_rate, fig, line, x_vals):
     return theta_0_real, theta_1_real
 
 def load_dataset():
-    with open("data.csv", "r") as f:
-        reader = csv.reader(f)
-        next(reader)
-        dataset = []
-        for row in reader:
-            dataset.append((float(row[0]), float(row[1])))
+    try:
+        with open("data.csv", "r") as f:
+            reader = csv.reader(f)
+            next(reader)
+            dataset = []
+            for row in reader:
+                dataset.append((float(row[0]), float(row[1])))
+    except:
+        print("Dataset not found")
+        return None
     return dataset
+
 
 def save_model(theta_0, theta_1):
     with open("model.csv", "w") as f:
@@ -68,6 +73,8 @@ def save_model(theta_0, theta_1):
 
 if __name__ == "__main__":
     dataset = load_dataset()
+    if dataset is None:
+        exit(1)
     print("Dataset loaded")
 
     plt.ion()
