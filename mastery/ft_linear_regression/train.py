@@ -1,6 +1,8 @@
 import csv
+import matplotlib.pyplot as plt
+import numpy as np
 
-def train(dataset, iterations, learning_rate):
+def train(dataset, iterations, learning_rate, fig, line, x_vals):
     mileages = [row[0] for row in dataset]
     min_mileage = min(mileages)
     max_mileage = max(mileages)
@@ -21,6 +23,13 @@ def train(dataset, iterations, learning_rate):
     for epoch in range(iterations):
         sum_error = 0.0
         sum_error_w = 0.0
+
+        if epoch % 20 == 0:
+            tmp_t1 = theta_1 / range_mileage
+            tmp_t0 = theta_0 - theta_1 * (min_mileage / range_mileage)
+            line.set_ydata(tmp_t0 + tmp_t1 * x_vals)
+            fig.canvas.draw()
+            fig.canvas.flush_events()
 
         for norm_mileage, price in normalized_dataset:
             # Current prediction
@@ -59,8 +68,24 @@ def save_model(theta_0, theta_1):
 
 if __name__ == "__main__":
     dataset = load_dataset()
+    print("Dataset loaded")
 
+    plt.ion()
+    
+    mileages = [row[0] for row in dataset]
+    prices = [row[1] for row in dataset]
+    
+    x_vals = np.linspace(min(mileages), max(mileages), 100)
+    fig, ax = plt.subplots()
+    line, = ax.plot(x_vals, np.zeros_like(x_vals), color='red')
+
+    plt.scatter(mileages, prices)
+    
     print("Starting training")
-    theta_0, theta_1 = train(dataset, 3000, 0.1)
+    theta_0, theta_1 = train(dataset, 3000, 0.1, fig, line, x_vals)
     print(f"Training completed, theta_0: {theta_0}, theta_1: {theta_1}")
+
+    plt.ioff()
+    plt.show()
+    
     save_model(theta_0, theta_1)
