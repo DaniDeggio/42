@@ -47,10 +47,10 @@ def train(dataset, iterations, learning_rate, fig, line, x_vals):
         theta_1 -= learning_rate * (1/m) * sum_error_w
 
     # Denormalise theta parameters to match the original dataset scale
-    theta_1_real = theta_1 / range_mileage
-    theta_0_real = theta_0 - theta_1 * (min_mileage / range_mileage)
+    theta_1_denorm = theta_1 / range_mileage
+    theta_0_denorm = theta_0 - theta_1 * (min_mileage / range_mileage)
 
-    return theta_0_real, theta_1_real
+    return theta_0_denorm, theta_1_denorm
 
 def load_dataset():
     try:
