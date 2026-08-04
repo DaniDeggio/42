@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import csv
 import argparse
 
@@ -31,21 +32,28 @@ def predict(X, theta_0, theta_1):
     return theta_0 + theta_1 * X
 
 def check_precision(theta_0, theta_1, dataset):
+    prices = [price for _, price in dataset]
+    mean_price = sum(prices) / len(prices)
 
-    # MAE
-    mean_error = 0.0    
-    for mileage, price in dataset:
-        mean_error += predict(mileage, theta_0, theta_1) - price
-    mean_error /= len(dataset)
-    print(f"MAE error: {mean_error}")
+    mae = 0.0
+    mse = 0.0
+    ss_tot = 0.0
 
-    # RMSE
-    rmse_error = 0.0
     for mileage, price in dataset:
-        rmse_error += (predict(mileage, theta_0, theta_1) - price) ** 2
-    rmse_error = rmse_error / len(dataset)
-    rmse_error = rmse_error ** 0.5
-    print(f"RMSE error: {rmse_error}")
+        prediction = predict(mileage, theta_0, theta_1)
+        error = prediction - price
+        mae += abs(error)
+        mse += error ** 2
+        ss_tot += (price - mean_price) ** 2
+
+    mae /= len(dataset)
+    mse /= len(dataset)
+    rmse = mse ** 0.5
+    r2 = 1.0 - (mse * len(dataset) / ss_tot) if ss_tot != 0 else 0.0
+
+    print(f"MAE (Mean Absolute Error): {mae:.4f}")
+    print(f"RMSE (Root Mean Squared Error): {rmse:.4f}")
+    print(f"R² Score: {r2:.4f} ({r2 * 100:.2f}%)")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Evaluate precision metrics for linear regression model.")
