@@ -53,35 +53,46 @@ def train(dataset, iterations, learning_rate, fig=None, line=None, x_vals=None, 
 
     return theta_0_denorm, theta_1_denorm
 
-def load_dataset():
+def load_dataset(filepath="data.csv"):
     try:
-        with open("data.csv", "r") as f:
+        with open(filepath, "r") as f:
             reader = csv.reader(f)
             next(reader)
             dataset = []
             for row in reader:
                 dataset.append((float(row[0]), float(row[1])))
-    except:
-        print("Dataset not found")
+    except Exception as e:
+        print(f"Error loading dataset '{filepath}': {e}")
         return None
     return dataset
 
 
-def save_model(theta_0, theta_1):
-    with open("model.csv", "w") as f:
-        writer = csv.writer(f)
-        writer.writerow([theta_0, theta_1])
+def save_model(theta_0, theta_1, filepath="model.csv"):
+    try:
+        with open(filepath, "w") as f:
+            writer = csv.writer(f)
+            writer.writerow([theta_0, theta_1])
+    except Exception as e:
+        print(f"Error saving model to '{filepath}': {e}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train linear regression model.")
     parser.add_argument("-p", "--plot", action=argparse.BooleanOptionalAction, default=False,
                         help="Attiva o disattiva il grafico in tempo reale durante l'addestramento.")
+    parser.add_argument("-d", "--dataset", type=str, default="data.csv",
+                        help="Percorso del file CSV contenente il dataset (default: data.csv)")
+    parser.add_argument("-o", "-m", "--output", "--model", dest="output", type=str, default="model.csv",
+                        help="Percorso del file CSV di output per salvare i pesi del modello (default: model.csv)")
+    parser.add_argument("-l", "-lr", "--learning-rate", dest="learning_rate", type=float, default=0.1,
+                        help="Learning rate per l'ottimizzazione (default: 0.1)")
+    parser.add_argument("-e", "-i", "--epochs", "--iterations", dest="epochs", type=int, default=3000,
+                        help="Numero di epoche / iterazioni di addestramento (default: 3000)")
     args = parser.parse_args()
 
-    dataset = load_dataset()
+    dataset = load_dataset(args.dataset)
     if dataset is None:
         exit(1)
-    print("Dataset loaded")
+    print(f"Dataset '{args.dataset}' loaded")
 
     fig, line, x_vals = None, None, None
     if args.plot:
@@ -95,12 +106,13 @@ if __name__ == "__main__":
 
         plt.scatter(mileages, prices)
     
-    print("Starting training")
-    theta_0, theta_1 = train(dataset, 3000, 0.1, fig, line, x_vals, plot=args.plot)
+    print(f"Starting training ({args.epochs} epochs, learning rate {args.learning_rate})")
+    theta_0, theta_1 = train(dataset, args.epochs, args.learning_rate, fig, line, x_vals, plot=args.plot)
     print(f"Training completed, theta_0: {theta_0}, theta_1: {theta_1}")
 
     if args.plot:
         plt.ioff()
         plt.show()
     
-    save_model(theta_0, theta_1)
+    save_model(theta_0, theta_1, args.output)
+    print(f"Model saved to '{args.output}'")
