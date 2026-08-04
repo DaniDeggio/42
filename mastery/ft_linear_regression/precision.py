@@ -1,29 +1,30 @@
 import csv
+import argparse
 
-def load_dataset():
+def load_dataset(filepath="data.csv"):
     try:
-        with open("data.csv", "r") as f:
+        with open(filepath, "r") as f:
             reader = csv.reader(f)
             next(reader)
             dataset = []
             for row in reader:
                 dataset.append((float(row[0]), float(row[1])))
-    except:
-        print("Dataset not found")
+    except Exception as e:
+        print(f"Error loading dataset '{filepath}': {e}")
         return None
     return dataset
 
-def load_model():
+def load_model(filepath="model.csv"):
     theta_0 = 0.0
     theta_1 = 0.0
     try:
-        with open("model.csv", "r") as f:
+        with open(filepath, "r") as f:
             reader = csv.reader(f)
             for row in reader:
                 theta_0 = float(row[0])
                 theta_1 = float(row[1])
-    except:
-        print("Model not found, fallback to defaults")
+    except Exception as e:
+        print(f"Model file '{filepath}' not found, fallback to defaults: {e}")
     return theta_0, theta_1
 
 def predict(X, theta_0, theta_1):
@@ -47,8 +48,15 @@ def check_precision(theta_0, theta_1, dataset):
     print(f"RMSE error: {rmse_error}")
 
 if __name__ == "__main__":
-    theta_0, theta_1 = load_model()
-    dataset = load_dataset()
+    parser = argparse.ArgumentParser(description="Evaluate precision metrics for linear regression model.")
+    parser.add_argument("-d", "--dataset", type=str, default="data.csv",
+                        help="Percorso del file CSV contenente il dataset (default: data.csv)")
+    parser.add_argument("-m", "--model", type=str, default="model.csv",
+                        help="Percorso del file dei pesi del modello (default: model.csv)")
+    args = parser.parse_args()
+
+    theta_0, theta_1 = load_model(args.model)
+    dataset = load_dataset(args.dataset)
     if dataset is None:
         exit(1)
     
