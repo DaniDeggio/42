@@ -1,8 +1,9 @@
 import csv
+import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 
-def train(dataset, iterations, learning_rate, fig, line, x_vals):
+def train(dataset, iterations, learning_rate, fig=None, line=None, x_vals=None, plot=False):
     mileages = [row[0] for row in dataset]
     min_mileage = min(mileages)
     max_mileage = max(mileages)
@@ -24,7 +25,7 @@ def train(dataset, iterations, learning_rate, fig, line, x_vals):
         sum_error = 0.0
         sum_error_w = 0.0
 
-        if epoch % 20 == 0:
+        if plot and epoch % 20 == 0 and line is not None and fig is not None:
             tmp_t1 = theta_1 / range_mileage
             tmp_t0 = theta_0 - theta_1 * (min_mileage / range_mileage)
             line.set_ydata(tmp_t0 + tmp_t1 * x_vals)
@@ -72,27 +73,34 @@ def save_model(theta_0, theta_1):
         writer.writerow([theta_0, theta_1])
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Train linear regression model.")
+    parser.add_argument("-p", "--plot", action=argparse.BooleanOptionalAction, default=False,
+                        help="Attiva o disattiva il grafico in tempo reale durante l'addestramento.")
+    args = parser.parse_args()
+
     dataset = load_dataset()
     if dataset is None:
         exit(1)
     print("Dataset loaded")
 
-    plt.ion()
-    
-    mileages = [row[0] for row in dataset]
-    prices = [row[1] for row in dataset]
-    
-    x_vals = np.linspace(min(mileages), max(mileages), 100)
-    fig, ax = plt.subplots()
-    line, = ax.plot(x_vals, np.zeros_like(x_vals), color='red')
+    fig, line, x_vals = None, None, None
+    if args.plot:
+        plt.ion()
+        mileages = [row[0] for row in dataset]
+        prices = [row[1] for row in dataset]
+        
+        x_vals = np.linspace(min(mileages), max(mileages), 100)
+        fig, ax = plt.subplots()
+        line, = ax.plot(x_vals, np.zeros_like(x_vals), color='red')
 
-    plt.scatter(mileages, prices)
+        plt.scatter(mileages, prices)
     
     print("Starting training")
-    theta_0, theta_1 = train(dataset, 3000, 0.1, fig, line, x_vals)
+    theta_0, theta_1 = train(dataset, 3000, 0.1, fig, line, x_vals, plot=args.plot)
     print(f"Training completed, theta_0: {theta_0}, theta_1: {theta_1}")
 
-    plt.ioff()
-    plt.show()
+    if args.plot:
+        plt.ioff()
+        plt.show()
     
     save_model(theta_0, theta_1)
